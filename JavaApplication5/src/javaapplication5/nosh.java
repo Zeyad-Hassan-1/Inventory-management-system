@@ -10,5 +10,8 @@ package javaapplication5;
  * @author afifi.store
  */
 public class nosh {
+  public static void main(String[] args) {
+        System.out.println("sss");
+    }    
     
 }
