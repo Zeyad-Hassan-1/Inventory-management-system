@@ -25,6 +25,8 @@ public class Product {
         this.supplierName = supplierName;
 
         if (quantity < 0) {
+                        this.quantity = 0;
+
             System.out.println(" Quantity cannot be negative Default value (0) used");
         } else {
             this.quantity = quantity;
@@ -214,5 +216,7 @@ public class Product {
         }
         return true;
     }
+    
+
 
 }
