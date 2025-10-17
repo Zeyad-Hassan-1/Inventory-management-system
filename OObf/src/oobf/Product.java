@@ -41,66 +41,8 @@ public class Product {
             this.price = price;
         }
     }
-
-    public static Product createProductFromInput() {
-        Scanner in = new Scanner(System.in);
-
-        System.out.println("=== Enter Product Information ===");
-
-        System.out.print("Enter Product ID: ");
-        String id = in.nextLine();
-
-        System.out.print("Enter Product Name: ");
-        String name = in.nextLine();
-
-        System.out.print("Enter Manufacturer Name: ");
-        String manufacturer = in.nextLine();
-
-        System.out.print("Enter Supplier Name: ");
-        String supplier = in.nextLine();
-
-        System.out.print("Enter Quantity: ");
-        int quantity = in.nextInt();
-
-        System.out.print("Enter Price: ");
-        float price = in.nextFloat();
-
-        System.out.println("Select Category:");
-        System.out.println("1. ELECTRONICS");
-        System.out.println("2. FOOD");
-        System.out.println("3. CLOTHING");
-        System.out.println("4. TOYS");
-        System.out.println("5. OTHER");
-
-        System.out.print("Enter Category Number (1-5): ");
-        int choice = in.nextInt();
-
-        Category category;
-        switch (choice) {
-            case 1:
-                category = Category.ELECTRONICS;
-                break;
-            case 2:
-                category = Category.FOOD;
-                break;
-            case 3:
-                category = Category.CLOTHING;
-                break;
-            case 4:
-                category = Category.TOYS;
-                break;
-            case 5:
-                category = Category.OTHER;
-                break;
-            default:
-                System.out.println(" Invalid choice! Defaulted to OTHER.");
-                category = Category.OTHER;
-                break;
-        }
-
-        System.out.println(" Product created successfully!\n");
-        return new Product(id, name, manufacturer, supplier, quantity, price, category);
-    }
+    
+   
 
     public int getQuantity() {
         return quantity;
