@@ -1,0 +1,29 @@
+@startuml
+package com.company.inventory_management_system.database {
+  interface Record
+  abstract class Database {
+    - records : Record[]
+  }
+  Database "1" *-- "*" Record : records
+}
+
+package com.company.inventory_management_system.admin_role {
+  class CustomerProduct
+  class EmployeeUser
+  class Product
+
+  CustomerProduct --|> com.company.inventory_management_system.database.Record
+  EmployeeUser --|> com.company.inventory_management_system.database.Record
+  Product --|> com.company.inventory_management_system.database.Record
+}
+
+package com.company.inventory_management_system.database {
+  class CustomerProductDatabase
+  class EmployeeUserDatabase
+  class ProductDatabase
+
+  CustomerProductDatabase --|> Database
+  EmployeeUserDatabase --|> Database
+  ProductDatabase --|> Database
+}
+@enduml
