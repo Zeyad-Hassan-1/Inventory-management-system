@@ -4,13 +4,92 @@
  */
 package com.company.inventory_management_system.database;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author zeyad
  */
 public abstract class Database {
+
     private String fileName;
     private ArrayList<Record> records;
+
+    public Database(String fileName) {
+        this.fileName = fileName;
+        records = new ArrayList<>();
+    }
+
+    public void readFromFile() {
+        File file = new File(this.fileName);
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNext()) {
+                Record record = createRecordFrom(scanner.nextLine());
+                if (record != null) {
+                    records.add(record);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No file found: " + this.fileName);
+        }
+    }
+
+    public ArrayList<Record> returnAllRecords() {
+        return records;
+    }
+
+    public boolean contains(String key) {
+        for (Record record : records) {
+            if (record.getSearchKey().equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Record getRecord(String key) {
+        for (Record record : records) {
+            if (record.getSearchKey().equals(key)) {
+                return record;
+            }
+        }
+        return null;
+    }
+
+    public void insertRecord(Record record) {
+        if (record != null && !contains(record.getSearchKey())) {
+            records.add(record);
+            System.out.println("Record inserted successfully");
+        } else {
+            System.out.println("Record is null or already in the database");
+        }
+    }
+
+    public void deleteRecord(String key) {
+        Record record = getRecord(key);
+        if (record != null) {
+            records.remove(getRecord(key));
+            System.out.println("Record deleted succeffully");
+        } else {
+            System.out.println("Record not found");
+        }
+    }
+
+    public void saveToFile() {
+        File file = new File(this.fileName);
+        try (FileWriter writer = new FileWriter(file)) {
+            for (Record record : records) {
+                writer.write(record.lineRepresentation() + "\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Error saving to file: " + this.fileName);
+        }
+    }
+
+    public abstract Record createRecordFrom(String line);
 }

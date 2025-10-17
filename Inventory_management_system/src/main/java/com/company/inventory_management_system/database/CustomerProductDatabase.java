@@ -4,10 +4,36 @@
  */
 package com.company.inventory_management_system.database;
 
+import com.company.inventory_management_system.CustomerProduct;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author zeyad
  */
 public class CustomerProductDatabase extends Database{
+
+    public CustomerProductDatabase(String fileName) {
+        super(fileName);
+    }
+    
+    
+
+    @Override
+    public Record createRecordFrom(String line) {
+        if(line == null){
+            System.out.println("please input the data separated by ,");
+            return null;
+        }
+        String[] fields = line.replace(" ","").split(",");
+        if(fields.length != 3){
+            System.out.println("Invalid line input");
+            return  null;
+        }
+        // the default formatter is yyyy-mm-dd so need to make the our formatter.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], formatter));
+    }
     
 }
