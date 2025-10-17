@@ -4,7 +4,7 @@
  */
 package com.company.inventory_management_system.database;
 
-import com.company.inventory_management_system.admin_role.CustomerProduct;
+import com.company.inventory_management_system.CustomerProduct;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

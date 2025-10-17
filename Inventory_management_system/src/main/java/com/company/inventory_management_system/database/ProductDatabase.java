@@ -4,7 +4,7 @@
  */
 package com.company.inventory_management_system.database;
 
-import com.company.inventory_management_system.admin_role.Product;
+import com.company.inventory_management_system.Product;
 
 /**
  *
