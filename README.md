@@ -4,7 +4,7 @@
 
 This Java application implements a fully **object-oriented Inventory Management System** for a retail store, supporting two user roles: **Admins** and **Employees**. The system uses **abstraction, inheritance, and polymorphism** to eliminate code duplication and ensure maintainable, scalable code.
 
-All data is persisted in plain-text CSV files, and the architecture follows a clean separation between **data entities**, **database logic**, and **user roles**.
+All data is persisted in plain-text files, and the architecture follows a clean separation between **data entities**, **database logic**, and **user roles**.
 
 ---
 
@@ -39,7 +39,7 @@ On successful return, product quantity is increased and the purchase record is r
 ### 🔁 Common Interface: `Record`
 All data entities implement the `Record` interface, which defines:
 - `String getSearchKey()` → unique identifier (e.g., employee ID, product ID, or composite key)
-- `String lineRepresentation()` → CSV format for file storage
+- `String lineRepresentation()` → format for file storage
 
 ### 📦 Abstract Base Class: `Database`
 - Contains a collection of `Record` objects
