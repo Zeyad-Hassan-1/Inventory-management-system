@@ -48,7 +48,7 @@ public class CustomerProduct implements Record{
 
     @Override
     public String lineRepresentation() {
-        return customerSSN + "," + productID + "," + purchaseDate.format(FORMATTER) + "," + paid;
+        return customerSSN + "," + productID + "," + purchaseDate.format(FORMATTER) ;
     }
 
     @Override
