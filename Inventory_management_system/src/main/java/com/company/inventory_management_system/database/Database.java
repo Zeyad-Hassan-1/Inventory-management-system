@@ -89,6 +89,7 @@ public abstract class Database {
         } catch (Exception e) {
             System.out.println("Error saving to file: " + this.fileName);
         }
+        System.out.println("Changes have been Saved Successfully!!!"); // just acknowledgement
     }
 
     public abstract Record createRecordFrom(String line);
