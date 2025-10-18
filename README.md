@@ -34,7 +34,7 @@ On successful return, product quantity is increased and the purchase record is r
 
 ---
 
-## 🧱 OOP Design (Based on Your Implementation)
+## 🧱 OOP Design
 
 ### 🔁 Common Interface: `Record`
 All data entities implement the `Record` interface, which defines:
