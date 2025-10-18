@@ -22,7 +22,7 @@ public class EmployeeUserDatabase extends Database{
             System.out.println("please input the data separated by ,");
             return null;
         }
-        String[] fields = line.replace(" ","").split(",");
+        String[] fields = line.replace(" ","").split(","); 
         if(fields.length != 5){
             System.out.println("Invalid line input");
             return  null;

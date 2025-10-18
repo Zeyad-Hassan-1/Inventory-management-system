@@ -22,12 +22,14 @@ public abstract class Database {
     public Database(String fileName) {
         this.fileName = fileName;
         records = new ArrayList<>();
+        readFromFile();
     }
 
-    public void readFromFile() {
+    public final void readFromFile() {
         File file = new File(this.fileName);
 
         try (Scanner scanner = new Scanner(file)) {
+            records.clear();
             while (scanner.hasNext()) {
                 Record record = createRecordFrom(scanner.nextLine());
                 if (record != null) {
@@ -39,11 +41,11 @@ public abstract class Database {
         }
     }
 
-    public ArrayList<Record> returnAllRecords() {
+    public final ArrayList<Record> returnAllRecords() {
         return records;
     }
 
-    public boolean contains(String key) {
+    public final boolean contains(String key) {
         for (Record record : records) {
             if (record.getSearchKey().equals(key)) {
                 return true;
@@ -52,7 +54,7 @@ public abstract class Database {
         return false;
     }
 
-    public Record getRecord(String key) {
+    public final Record getRecord(String key) {
         for (Record record : records) {
             if (record.getSearchKey().equals(key)) {
                 return record;
@@ -61,7 +63,7 @@ public abstract class Database {
         return null;
     }
 
-    public void insertRecord(Record record) {
+    public final void insertRecord(Record record) {
         if (record != null && !contains(record.getSearchKey())) {
             records.add(record);
             System.out.println("Record inserted successfully");
@@ -70,25 +72,27 @@ public abstract class Database {
         }
     }
 
-    public void deleteRecord(String key) {
+    public final void deleteRecord(String key) {
         Record record = getRecord(key);
         if (record != null) {
             records.remove(getRecord(key));
-            System.out.println("Record deleted succeffully");
+            System.out.println("Record deleted successfully");
         } else {
             System.out.println("Record not found");
         }
     }
 
-    public void saveToFile() {
+    public final void saveToFile() {
         File file = new File(this.fileName);
         try (FileWriter writer = new FileWriter(file)) {
+            System.out.println("Saving to file...");
             for (Record record : records) {
                 writer.write(record.lineRepresentation() + "\n");
             }
         } catch (Exception e) {
             System.out.println("Error saving to file: " + this.fileName);
         }
+        System.out.println("Saved Successfully!!!"); // just acknowledgement
     }
 
     public abstract Record createRecordFrom(String line);
