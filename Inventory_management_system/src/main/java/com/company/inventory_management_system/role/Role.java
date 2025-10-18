@@ -4,16 +4,19 @@
  */
 package com.company.inventory_management_system.role;
 
-import com.company.inventory_management_system.database.Database;
-
 /**
  *
  * @author Hazem
  */
 public abstract class Role {
-    protected void noDatabaseAssignedError(Database D)
+    protected void noDatabaseAssignedError()
     {
-        System.out.println(D.getClass().getSimpleName() + " should be instantiated and set first");
+        System.out.println("Database should be instantiated and set first");
+    }
+    
+    protected void noDatabaseAssignedError(String databaseType)
+    {
+        System.out.println(databaseType + " database should be instantiated and set first");
     }
     
     public abstract void logout();

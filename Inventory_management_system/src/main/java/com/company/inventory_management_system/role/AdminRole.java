@@ -36,9 +36,16 @@ public class AdminRole extends Role{
     {
         if(database == null)
         {
-            noDatabaseAssignedError(database);
+            noDatabaseAssignedError("Employee");
             return;
         }
+        
+        // following replace block could be later validated in main program but it should be written to ensure no data corruption
+        employeeId = employeeId.replace(",", "");
+        name = name.replace(",", "");
+        email = email.replace(",", "");
+        address = address.replace(",", "");
+        phoneNumber = phoneNumber.replace(",", "");
         
         EmployeeUser employee = new EmployeeUser(employeeId, name, email, address, phoneNumber);
         database.readFromFile();
@@ -50,7 +57,7 @@ public class AdminRole extends Role{
     {
         if(database == null)
         {
-            noDatabaseAssignedError(database);
+            noDatabaseAssignedError("Employee");
             return null;
         }
         database.readFromFile();
@@ -61,7 +68,7 @@ public class AdminRole extends Role{
     {
         if(database == null)
         {
-            noDatabaseAssignedError(database);
+            noDatabaseAssignedError("Employee");
             return;
         }
         database.readFromFile();
@@ -74,10 +81,10 @@ public class AdminRole extends Role{
     {
         if(database == null)
         {
-            noDatabaseAssignedError(database);
+            noDatabaseAssignedError("Employee");
             return;
         }
-        database.saveToFile();
         System.out.println("Logging out...");
+        database.saveToFile();
     }
 }
