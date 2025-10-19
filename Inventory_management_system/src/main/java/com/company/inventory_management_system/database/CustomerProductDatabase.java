@@ -8,7 +8,6 @@ import com.company.inventory_management_system.CustomerProduct;
 import com.company.inventory_management_system.Validation;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  *

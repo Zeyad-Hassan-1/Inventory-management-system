@@ -1,0 +1,5 @@
+P5821,Smartphone,Samsung,GlobalElectronics,25,800.0
+P9317,Tablet,Microsoft,CompSource,14,950.0
+P1234,Monitor,Dell,OfficeTech,27,350.0
+P7890,Keyboard,Logitech,AccessoryWorld,50,75.0
+P4567,Webcam,Razer,PCPartsInc,22,120.0
