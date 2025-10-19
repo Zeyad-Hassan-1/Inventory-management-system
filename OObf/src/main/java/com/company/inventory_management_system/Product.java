@@ -1,13 +1,10 @@
 package com.company.inventory_management_system;
 
+import com.company.inventory_management_system.Validation;
 import com.company.inventory_management_system.database.Record;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import static oobf.Validation;
 
-
-public class Product implements Record {
+public class Product  implements Record{
 
     private String productID;
     private String productName;
