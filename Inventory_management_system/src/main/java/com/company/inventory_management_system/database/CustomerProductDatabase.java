@@ -5,6 +5,8 @@
 package com.company.inventory_management_system.database;
 
 import com.company.inventory_management_system.CustomerProduct;
+import com.company.inventory_management_system.Validation;
+
 import java.time.LocalDate;
 
 /**
@@ -30,8 +32,10 @@ public class CustomerProductDatabase extends Database{
             System.out.println("Invalid line input");
             return  null;
         }
-        
-        return  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], CustomerProduct.getFORMATTER()));
+        // the default formatter is yyyy-mm-dd so need to make the our formatter.
+        if (!Validation.isValidDate(fields[2])) return null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], formatter));
     }
     
 }
