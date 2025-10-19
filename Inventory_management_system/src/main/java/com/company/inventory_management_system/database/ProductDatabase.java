@@ -5,6 +5,7 @@
 package com.company.inventory_management_system.database;
 
 import com.company.inventory_management_system.Product;
+import com.company.inventory_management_system.Validation;
 
 /**
  *
@@ -27,7 +28,16 @@ public class ProductDatabase extends Database {
             System.out.println("Invalid line input");
             return null;
         }
-        return new Product(fields[0], fields[1], fields[2], fields[3], Integer.parseInt(fields[4]), Float.parseFloat(fields[5]));
+        int quantity = Integer.parseInt(fields[4]);
+        if (!Validation.isPositiveInt(quantity)){
+            quantity = 0;
+        }
+        float price = Float.parseFloat(fields[5]);
+        if (!Validation.isPositiveFloat(price)){
+            price = 0.0f;
+        }
+
+        return new Product(fields[0], fields[1], fields[2], fields[3], quantity, price);
     }
 
 }

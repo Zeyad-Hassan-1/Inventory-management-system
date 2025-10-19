@@ -20,9 +20,9 @@ public class Product  implements Record{
         this.manufacturerName = manufacturerName;
         this.supplierName = supplierName;
 
-        this.quantity = Validation.isPositive(quantity) ? quantity : 0;
+        this.quantity = Validation.isPositiveInt(quantity) ? quantity : 0;
 
-        this.price = Validation.isPositive((int) price) ? price : 0.0f;
+        this.price = Validation.isPositiveFloat(price)? price : 0.0f;
 
     }
 
@@ -31,7 +31,7 @@ public class Product  implements Record{
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = Validation.isPositive(quantity) ? quantity : this.quantity;
+        this.quantity = Validation.isPositiveInt(quantity) ? quantity : this.quantity;
     }
 
     public String getProductID() {
@@ -55,7 +55,7 @@ public class Product  implements Record{
     }
 
     public void setPrice(float price) {
-        this.price = Validation.isPositive((int) price) ? price : this.price;
+        this.price = Validation.isPositiveFloat(price) ? price : this.price;
     }
 
     @Override

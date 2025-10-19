@@ -45,11 +45,11 @@ public class Validation {
         return true;
     }
 
-    public static boolean isPositive(int value) {
-        if (value >= 0) {
-            return true;
-        }
-        return false;
+    public static boolean isPositiveInt(int value) {
+        return value >= 0;
+    }
+    public static boolean isPositiveFloat(float value) {
+        return value >= 0.0;
     }
 
     public static boolean validPhone(String phone) {
@@ -57,6 +57,14 @@ public class Validation {
         String pattern = "^(\\+?2)?01[0-25][0-9]{8}$";
         if (!Pattern.matches(pattern, phone)) {
             return false;
+        }
+        return true;
+    }
+
+    public static boolean isNumber(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') return false;
         }
         return true;
     }
