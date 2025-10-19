@@ -15,25 +15,22 @@ import java.util.regex.Pattern;
  */
 public class Validation {
 
-    public static boolean notEmpty(String value, String fieldName) {
+    public static boolean notEmpty(String value) {
         if (value == null || value.trim().isEmpty()) {
-            System.err.println("Error: " + fieldName + " cannot be empty.");
             return false;
         }
         return true;
     }
 
-    public static boolean isAlphabetic(String value, String fieldName) {
+    public static boolean isAlphabetic(String value) {
         if (!Pattern.matches("^[A-Za-z ]+$", value)) {
-            System.err.println("Error: " + fieldName + " must contain only letters.");
             return false;
         }
         return true;
     }
 
-    public static boolean isNumeric(String value, String fieldName) {
+    public static boolean isNumeric(String value) {
         if (!Pattern.matches("^[0-9]+$", value)) {
-            System.err.println("Error: " + fieldName + " must contain only digits.");
             return false;
         }
         return true;
@@ -48,19 +45,17 @@ public class Validation {
         return true;
     }
 
-    public static boolean isPositive(int value, String fieldName) {
-        if (value < 0) {
-            System.err.println("Error: " + fieldName + " cannot be negative.");
-            return false;
+    public static boolean isPositive(int value) {
+        if (value >= 0) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public static boolean validPhone(String phone) {
         // Egyptian phone format ONLY /////////////////////////////
         String pattern = "^(\\+?2)?01[0-25][0-9]{8}$";
         if (!Pattern.matches(pattern, phone)) {
-            System.err.println("Error: Invalid phone number format.");
             return false;
         }
         return true;

@@ -1,14 +1,13 @@
-package oobf;
+package com.company.inventory_management_system;
+
+import com.company.inventory_management_system.database.Record;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import static oobf.VALIDATION.validQuantity;
+import static oobf.Validation;
 
-public class Product {
 
-    public enum Category {
-        ELECTRONICS, FOOD, CLOTHING, TOYS, OTHER
-    }
+public class Product implements Record {
 
     private String productID;
     private String productName;
@@ -16,20 +15,17 @@ public class Product {
     private String supplierName;
     private int quantity;
     private float price;
-    private Category category;
 
     public Product(String productID, String productName, String manufacturerName,
-            String supplierName, int quantity, float price, Category category) {
+            String supplierName, int quantity, float price) {
         this.productID = productID;
         this.productName = productName;
         this.manufacturerName = manufacturerName;
         this.supplierName = supplierName;
 
-        this.quantity = quantity;
+        this.quantity = Validation.isPositive(quantity) ? quantity : 0;
 
-        this.category = category;
-
-        this.price = price;
+        this.price = Validation.isPositive((int) price) ? price : 0.0f;
 
     }
 
@@ -38,22 +34,7 @@ public class Product {
     }
 
     public void setQuantity(int quantity) {
-        if (quantity < 0) {
-            System.out.println("Quantity cannot be negative.");
-        } else {
-            this.quantity = quantity;
-            displayInfo();
-        }
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-        displayInfo();
-
+        this.quantity = Validation.isPositive(quantity) ? quantity : this.quantity;
     }
 
     public String getProductID() {
@@ -77,18 +58,18 @@ public class Product {
     }
 
     public void setPrice(float price) {
-        if (price > 0) {
-            this.price = price;
-            displayInfo();
-
-        } else {
-            System.out.println("Price must be greater than 0.");
-        }
+        this.price = Validation.isPositive((int) price) ? price : this.price;
     }
 
+    @Override
     public String lineRepresentation() {
         return productID + "," + productName + "," + manufacturerName + ","
-                + supplierName + "," + quantity + "," + price + "," + category;
+                + supplierName + "," + quantity + "," + price;
+    }
+
+    @Override
+    public String getSearchKey() {
+        return productID;
     }
 
     public void displayInfo() {
@@ -99,12 +80,7 @@ public class Product {
         System.out.println("Supplier: " + supplierName);
         System.out.println("Quantity: " + quantity);
         System.out.println("Price: " + price);
-        System.out.println("Category: " + category);
         System.out.println("------------------------------");
-    }
-
-    public String getSearchKey() {
-        return productID;
     }
 
     public float totalValueInStock() {
@@ -133,19 +109,6 @@ public class Product {
         } else {
             System.out.println(" Invalid amount. Must be greater than zero.");
         }
-    }
-
-    public static boolean isProductIDUnique(String newID, ArrayList<Product> products) {
-        if (newID == null || products == null) {
-            return false;
-        }
-        for (Product p : products) {
-            String key = p.getSearchKey();
-            if (key != null && key.equalsIgnoreCase(newID)) {
-                return false;
-            }
-        }
-        return true;
     }
 
 }
