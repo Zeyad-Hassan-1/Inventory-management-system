@@ -3,8 +3,10 @@
  */
 package com.company.inventory_management_system;
 
-import com.company.inventory_management_system.database.CustomerProductDatabase;
-import com.company.inventory_management_system.database.ProductDatabase;
+import com.company.inventory_management_system.database.EmployeeUserDatabase;
+import com.company.inventory_management_system.role.AdminRole;
+import com.company.inventory_management_system.role.EmployeeRole;
+import com.company.inventory_management_system.role.Role;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -15,17 +17,161 @@ import java.util.Scanner;
  */
 public class Inventory_management_system {
 
+    private static int mainMenu()
+    {
+        Scanner scan = new Scanner(System.in);
+        String mainMenu = "Inventory Management System\n---------------------------\nChoose one of the following options to proceed\n(1)Admin Login\n(2)Employee Login\n(3)Exit Program\nEnter Choice Index:";
+        while(true)
+        {
+            System.out.println(mainMenu);
+            String inputBuffer = scan.nextLine();
+            if(Validation.isPositiveInt(inputBuffer))
+            {
+                int choice = Integer.parseInt(inputBuffer);
+                if(choice<=3&&choice>=1)
+                {
+                    return choice;
+                } 
 
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in); 
+            }
+            System.out.println("Invalid Input, Please Try again...");
+        }
+    }
+    
+    private static void roleHandler(AdminRole role)
+    {
+        Scanner scan = new Scanner(System.in);
+        String inputBuffer;
+        int isConfirmation;
+        while(true)
+        {
+            System.out.println("Do you want to change the source file of the employees database? (y/n)");
+            isConfirmation = Validation.isConfirmationResponse(scan.nextLine());
+            if(isConfirmation==1)
+            {
+                System.out.println("Enter new source file: ");
+                inputBuffer = scan.nextLine();
+                if(Validation.isAlphabetic(inputBuffer, "File Name"))
+                {
+                    EmployeeUserDatabase newDB = new EmployeeUserDatabase(inputBuffer);
+                    role.setDatabase(newDB);
+                    break;
+                }
+                continue;
+            }
+            else if(isConfirmation==0)
+            {
+                break;
+            }
 
-        ProductDatabase productsDatabase = new ProductDatabase("products.txt");
-        Product product = new Product("123","efes","dsfrd","efsre",-5,0.5f);
-        productsDatabase.insertRecord(product);
-        productsDatabase.saveToFile();
-        productsDatabase.readFromFile();
-        System.out.println(productsDatabase.returnAllRecords().toArray()[0]);
+            // else it will continue the loop & display the following message                
+            System.out.println("Invalid Input, Please Try again...");
+        }
+        
+        String adminMenu = "Admin Operations\n---------------------------\nChoose one of the following options to proceed\n(1)Add employee\n(2)Get list of employees\n(3)Remove employee\n(4)Log out\nEnter Choice Index:";
+        int choice;
+        isConfirmation = 1;
+        while(isConfirmation==1)
+        {
+            while(true)
+            {
+                System.out.println(adminMenu);
+                inputBuffer = scan.nextLine();
+                if(Validation.isPositiveInt(inputBuffer))
+                {
+                    choice = Integer.parseInt(inputBuffer);
+                    if(choice<=4&&choice>=1)
+                    {
+                        break;
+                    } 
 
-        scanner.close();
+                }
+                System.out.println("Invalid Input, Please Try again...");
+            }
+            switch(choice)
+            {
+                case 1://Add Employee
+                    System.out.println("Enter Employee Name:");
+                    String name = scan.nextLine().trim();
+                    System.out.println("Enter Employee Id:");
+                    String id = scan.nextLine().trim();
+                    System.out.println("Enter email:");
+                    String email = scan.nextLine().trim();
+                    System.out.println("Enter Address");
+                    String address = scan.nextLine().trim();
+                    System.out.println("Enter Phone Number:");
+                    String phoneNum = scan.nextLine().trim();
+                    if(Validation.isAlphabetic(name, "name")&&Validation.validEmail(email)&&
+                       Validation.validPhone(phoneNum)&&Validation.isAlphabetic(id.substring(0, 1), "Id")&&
+                       Validation.isPositiveInt(id.substring(1))&&Validation.isAlphabetic(address, "Address"))
+                    {
+                        role.addEmployee(id, name, email, address, phoneNum);
+                    }
+                    break;
+                
+                case 2://Get Employee List
+                    EmployeeUser[] employeesList = role.getListOfEmployees();
+                    for(EmployeeUser employee:employeesList)
+                    {
+                        System.out.println("------------------------");
+                        System.out.println("Name: " + employee.getName());
+                        System.out.println("ID: " + employee.getSearchKey());
+                        System.out.println("Email: " + employee.getEmail());
+                        System.out.println("Address: " + employee.getAddress());
+                        System.out.println("Phone Number: " + employee.getPhoneNumber());
+                        System.out.println("------------------------");
+                    }
+                    System.out.println("Total Number of Employees: " + employeesList.length);
+                    break;
+                
+                case 3://Remove Employee
+                    System.out.println("Enter Employee Id:");
+                    String searchKey = scan.nextLine().trim();
+                    role.removeEmployee(searchKey);
+                    break;
+                    
+                case 4:
+                default:
+                    role.logout();
+                    return;
+            }
+            
+            do
+            {
+                System.out.println("Do you wish to do more operations?");
+                isConfirmation = Validation.isConfirmationResponse(scan.nextLine());
+            }while(isConfirmation==-1);
+            
+        }
+        role.logout();
+        
+    }
+    
+    private static void roleHandler(EmployeeRole role)
+    {
+        
+    }
+    
+    public static void main(String[] args){
+        
+        while(true)
+        {
+            Role role;
+            switch(mainMenu())
+            {
+                case 1:
+                    role = new AdminRole();
+                    roleHandler((AdminRole)role);
+                    break;
+                case 2:
+                    role = new EmployeeRole();
+                    roleHandler((EmployeeRole)role);
+                    break;
+                case 3:
+                default:
+                    System.out.println("Exiting...");
+                    return;
+            }
+        }
     }
 }

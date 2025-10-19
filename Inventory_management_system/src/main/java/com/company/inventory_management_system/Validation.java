@@ -5,10 +5,6 @@
  */
 package com.company.inventory_management_system;
 
-import java.io.File;
-import java.util.List;
-import java.util.regex.Pattern;
-
 /**
  *
  * @author afifi.store
@@ -24,7 +20,34 @@ public class Validation {
         return true;
     }
 
-     public static boolean isAlphabetic(String value, String fieldName) {
+    /**
+     * 
+     * @param s
+     * @return 1 in case of 'y' or 'Y',
+     *         0 in case of 'n' or 'N',
+     *         -1 otherwise.
+     */
+    public static int isConfirmationResponse(String s)
+    {
+        if(s.length()!=1)
+        {
+            return -1;
+        }
+        s=s.toUpperCase();
+        char temp = s.charAt(0);
+        if(temp == 'Y')
+        {
+            return 1;
+        }
+        if(temp == 'N')
+        {
+            return 0;
+        }
+        return -1;
+        
+    }
+    
+    public static boolean isAlphabetic(String value, String fieldName) {
         if (value == null) {
             System.err.println("Error: " + fieldName + " cannot be null.");
             return false;
@@ -102,6 +125,21 @@ public class Validation {
         return value >= 0.0;
     }
 
+    public static boolean isPositiveInt(String str) {
+        if(isInt(str))
+        {
+            return Integer.parseInt(str)>=0;
+        }
+        return false;
+    }
+    
+    public static boolean isPositiveFloat(String str) {
+        if(isFloat(str))
+        {
+            return Double.parseDouble(str)>=0.0;
+        }
+        return false;
+    }
 
     public static boolean validPhone(String phone) {
         if (phone == null) {
@@ -136,12 +174,28 @@ public class Validation {
         return true;
     }
 
-    public static boolean isNumber(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (c < '0' || c > '9') return false;
+    public static boolean isInt(String str) {
+        try
+        {
+            Integer.parseInt(str);
+            return true;
         }
-        return true;
+        catch(NumberFormatException e)
+        {
+            return false;
+        }
+    }
+    
+    public static boolean isFloat(String str) {
+        try
+        {
+            Double.parseDouble(str);
+            return true;
+        }
+        catch(NumberFormatException e)
+        {
+            return false;
+        }
     }
 
     public static boolean isValidDate(String dateStr) 
@@ -150,7 +204,7 @@ public class Validation {
         if (parts.length != 3)
             return false;
         for (String part : parts) {
-            if (!isNumber(part))
+            if (!isPositiveInt(part))
                 return false;
         }
         int day = Integer.parseInt(parts[0]);
