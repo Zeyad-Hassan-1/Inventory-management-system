@@ -8,7 +8,9 @@ import com.company.inventory_management_system.role.AdminRole;
 import com.company.inventory_management_system.role.EmployeeRole;
 import com.company.inventory_management_system.role.Role;
 
+
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -147,10 +149,112 @@ public class Inventory_management_system {
         
     }
     
+   
+    
+    
+    
     private static void roleHandler(EmployeeRole role)
+{
+    Scanner scan = new Scanner(System.in);
+    String inputBuffer;
+    int choice;
+    int isConfirmation = 1; // 1 = yes, 0 = no
+
+    // Employee Menu
+    String employeeMenu = "Employee Operations\n"
+            + "---------------------------\n"
+            + "(1) Display All Products\n"
+            + "(2) Search for Product\n"
+            + "(3) Record New Purchase\n"
+            + "(4) View All Customer Purchases\n"
+            + "(5) Log out\n"
+            + "Enter Choice Index:";
+
+    
+    while (isConfirmation == 1)
     {
         
+        while (true)
+        {
+            System.out.println(employeeMenu);
+            inputBuffer = scan.nextLine();
+
+            if (Validation.isPositiveInt(inputBuffer))
+            {
+                choice = Integer.parseInt(inputBuffer);
+                if (choice >= 1 && choice <= 5)
+                    break;
+            }
+
+            System.out.println("Invalid Input, Please Try again...");
+        }
+
+        
+        switch (choice)
+        {
+            case 1:
+                // Display all available products
+                role.displayProducts();
+                break;
+
+            case 2:
+                // Search for a specific product
+                System.out.print("Enter Product ID to search: ");
+                String productId = scan.nextLine().trim();
+                role.searchProduct(productId);
+                break;
+
+            case 3:
+                // Record a new purchase create CustomerProduct
+                System.out.print("Enter Customer SSN: ");
+                String customerSSN = scan.nextLine().trim();
+
+                System.out.print("Enter Product ID: ");
+                String prodID = scan.nextLine().trim();
+
+                // Create a new CustomerProduct object
+                LocalDate date = LocalDate.now(); 
+                CustomerProduct newPurchase = new CustomerProduct(customerSSN, prodID, date);
+
+                
+                System.out.print("Has the customer paid? (y/n): ");
+                int paidResponse = Validation.isConfirmationResponse(scan.nextLine());
+                newPurchase.setPaid(paidResponse == 1);
+
+                
+                role.recordNewPurchase(newPurchase);
+
+                System.out.println("Purchase recorded successfully for customer " + customerSSN);
+                break;
+
+            case 4:
+                // Display all customer purchase records
+                role.displayCustomerPurchases();
+                break;
+
+            case 5:
+            default:
+                
+                role.logout();
+                return;
+        }
+
+        
+        do
+        {
+            System.out.print("Do you want to perform more operations? (y/n): ");
+            isConfirmation = Validation.isConfirmationResponse(scan.nextLine());
+        } while (isConfirmation == -1);
     }
+
+    
+    role.logout();
+}
+
+
+
+        
+    
     
     public static void main(String[] args){
         
