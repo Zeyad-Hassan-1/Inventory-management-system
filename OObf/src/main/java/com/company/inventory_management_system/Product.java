@@ -1,9 +1,13 @@
 package com.company.inventory_management_system;
 
 import com.company.inventory_management_system.database.Record;
-import java.util.ArrayList;
 
-public class Product implements Record{
+import java.util.ArrayList;
+import java.util.Scanner;
+import static oobf.Validation;
+
+
+public class Product implements Record {
 
     private String productID;
     private String productName;
@@ -19,35 +23,18 @@ public class Product implements Record{
         this.manufacturerName = manufacturerName;
         this.supplierName = supplierName;
 
-        if (quantity < 0) {
-                        this.quantity = 0;
+        this.quantity = Validation.isPositive(quantity) ? quantity : 0;
 
-            System.out.println(" Quantity cannot be negative Default value (0) used");
-        } else {
-            this.quantity = quantity;
-        }
+        this.price = Validation.isPositive((int) price) ? price : 0.0f;
 
-        if (price <= 0) {
-            this.price = 1;
-            System.out.println(" Invalid price! Default value (1) used.");
-        } else {
-            this.price = price;
-        }
     }
-    
-   
 
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
-        if (quantity < 0) {
-            System.out.println("Quantity cannot be negative.");
-        } else {
-            this.quantity = quantity;
-            displayInfo();
-        }
+        this.quantity = Validation.isPositive(quantity) ? quantity : this.quantity;
     }
 
     public String getProductID() {
@@ -71,19 +58,18 @@ public class Product implements Record{
     }
 
     public void setPrice(float price) {
-        if (price > 0) {
-            this.price = price;
-            displayInfo();
-
-        } else {
-            System.out.println("Price must be greater than 0.");
-        }
+        this.price = Validation.isPositive((int) price) ? price : this.price;
     }
 
     @Override
     public String lineRepresentation() {
         return productID + "," + productName + "," + manufacturerName + ","
                 + supplierName + "," + quantity + "," + price;
+    }
+
+    @Override
+    public String getSearchKey() {
+        return productID;
     }
 
     public void displayInfo() {
@@ -97,15 +83,10 @@ public class Product implements Record{
         System.out.println("------------------------------");
     }
 
-    @Override
-    public String getSearchKey() {
-        return productID;
-    }
-
     public float totalValueInStock() {
-        System.out.println("totalValueInStock: " + price * quantity  );
-    float y = price * quantity ; 
-    return y ; 
+        System.out.println("totalValueInStock: " + price * quantity);
+        float y = price * quantity;
+        return y;
     }
 
     public boolean sellQuantity(int amount) {
@@ -129,20 +110,5 @@ public class Product implements Record{
             System.out.println(" Invalid amount. Must be greater than zero.");
         }
     }
-
-    public static boolean isProductIDUnique(String newID, ArrayList<Product> products) {
-        if (newID == null || products == null) {
-            return false;
-        }
-        for (Product p : products) {
-            String key = p.getSearchKey();
-            if (key != null && key.equalsIgnoreCase(newID)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-
 
 }
