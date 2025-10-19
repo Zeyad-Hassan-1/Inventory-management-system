@@ -22,9 +22,17 @@ public class Validation {
         return true;
     }
 
-    public static boolean isAlphabetic(String value) {
-        if (!Pattern.matches("^[A-Za-z ]+$", value)) {
+     public static boolean isAlphabetic(String value, String fieldName) {
+        if (value == null) {
+            System.err.println("Error: " + fieldName + " cannot be null.");
             return false;
+        }
+        for (int i = 0; i < value.length(); i++) {
+            char c = value.charAt(i);
+            if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == ' ')) {
+                System.err.println("Error: " + fieldName + " must contain only letters.");
+                return false;
+            }
         }
         return true;
     }
