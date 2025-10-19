@@ -163,11 +163,13 @@ public class Inventory_management_system {
     // Employee Menu
     String employeeMenu = "Employee Operations\n"
             + "---------------------------\n"
-            + "(1) Display All Products\n"
-            + "(2) Search for Product\n"
-            + "(3) Record New Purchase\n"
-            + "(4) View All Customer Purchases\n"
-            + "(5) Log out\n"
+            + "(1) Add product\n"
+            + "(2) return all products then display\n"
+            + "(3) return all purchasing products then display\n"
+            + "(4) purchase product\n"
+            + "(5) return product\n"
+            + "(6) apply payment\n"
+            + "(7) logout\n"
             + "Enter Choice Index:";
 
     
@@ -182,59 +184,122 @@ public class Inventory_management_system {
             if (Validation.isPositiveInt(inputBuffer))
             {
                 choice = Integer.parseInt(inputBuffer);
-                if (choice >= 1 && choice <= 5)
+                if (choice >= 1 && choice <= 7)
                     break;
             }
 
             System.out.println("Invalid Input, Please Try again...");
         }
 
-        
+        String customerSSN,productId,productName,manufacturerName,supplierName,quantity,price,purchaseDateString;
+        LocalDate purchaseDate;
         switch (choice)
         {
+            
             case 1:
-                // Display all available products
-                role.displayProducts();
+                // Add a new product
+                System.out.println("Enter Product Id: ");
+                productId = scan.nextLine().trim();
+                System.out.println("Enter Product Name: ");
+                productName = scan.nextLine().trim();
+                System.out.println("Enter Manufacturer Name: ");
+                manufacturerName = scan.nextLine().trim();
+                System.out.println("Enter Supplier Name: ");
+                supplierName = scan.nextLine().trim();
+                System.out.println("Enter Quantity: ");
+                boolean flag1 = true;
+                do {
+                    if (!flag1){
+                        System.out.println("Invalid Quantity, Please Try again...");
+                    }
+                     quantity = scan.nextLine().trim();
+                    flag1 = false;
+                }while (!Validation.isPositiveInt(quantity));
+                flag1 = true;
+                System.out.println("Enter Price: ");
+                do {
+                    if (!flag1){
+                        System.out.println("Invalid Price, Please Try again...");
+                    }
+                     price = scan.nextLine().trim();
+                    flag1 = false;
+                }while (!Validation.isPositiveFloat(price));
+                role.addProduct(productId,productName,manufacturerName,supplierName,Integer.parseInt(quantity),Float.parseFloat(price));
                 break;
 
             case 2:
-                // Search for a specific product
-                System.out.print("Enter Product ID to search: ");
-                String productId = scan.nextLine().trim();
-                role.searchProduct(productId);
+                // return all products then display
+                Product[] products = role.getListOfProducts();
+                for (Product product : products){
+                    System.out.println(product.lineRepresentation());
+                }
                 break;
 
             case 3:
-                // Record a new purchase create CustomerProduct
-                System.out.print("Enter Customer SSN: ");
-                String customerSSN = scan.nextLine().trim();
+                CustomerProduct[] customerProducts = role.getListOfPurchasingOperations();
+                for (CustomerProduct customerProduct : customerProducts){
+                    System.out.println(customerProduct.lineRepresentation());
+                }
 
-                System.out.print("Enter Product ID: ");
-                String prodID = scan.nextLine().trim();
-
-                // Create a new CustomerProduct object
-                LocalDate date = LocalDate.now(); 
-                CustomerProduct newPurchase = new CustomerProduct(customerSSN, prodID, date);
-
-                
-                System.out.print("Has the customer paid? (y/n): ");
-                int paidResponse = Validation.isConfirmationResponse(scan.nextLine());
-                newPurchase.setPaid(paidResponse == 1);
-
-                
-                role.recordNewPurchase(newPurchase);
-
-                System.out.println("Purchase recorded successfully for customer " + customerSSN);
                 break;
 
             case 4:
-                // Display all customer purchase records
-                role.displayCustomerPurchases();
+                // purchase product
+                System.out.print("Enter Customer SSN: ");
+                customerSSN = scan.nextLine().trim();
+
+                System.out.print("Enter Product ID: ");
+                productId = scan.nextLine().trim();
+                // Create a new CustomerProduct object
+                LocalDate date = LocalDate.now();
+                CustomerProduct newPurchase = new CustomerProduct(customerSSN, productId, date);
+                role.purchaseProduct(customerSSN, productId, date);
+                System.out.println("Purchase recorded successfully for customer " + customerSSN);
+
                 break;
 
             case 5:
+                //return product
+                System.out.print("Enter Customer SSN: ");
+                customerSSN = scan.nextLine().trim();
+
+                System.out.print("Enter Product ID: ");
+                productId = scan.nextLine().trim();
+                LocalDate returnDate = LocalDate.now();
+
+                System.out.print("Enter Purchase Date (dd-MM-yyyy): ");
+                boolean flagg = true;
+                do {
+                    if (!flagg){
+                        System.out.println("Invalid Date Format, Please Try again...");
+                    }
+                    purchaseDateString = scan.nextLine().trim();
+                    flagg = false;
+
+                }while (!Validation.isValidDate(purchaseDateString));
+                purchaseDate = LocalDate.parse(purchaseDateString,CustomerProduct.getFORMATTER());
+                role.returnProduct(customerSSN, productId, purchaseDate, returnDate);
+                break;
+            case 6:
+                //apply payment
+                System.out.print("Enter Customer SSN: ");
+                customerSSN = scan.nextLine().trim();
+
+                System.out.print("Enter Purchase Date (dd-MM-yyyy): ");
+                boolean flag = true;
+                do {
+                    if (!flag){
+                        System.out.println("Invalid Date Format, Please Try again...");
+                    }
+                    purchaseDateString = scan.nextLine().trim();
+                    flag = false;
+                    
+                }while (!Validation.isValidDate(purchaseDateString));
+                purchaseDate = LocalDate.parse(purchaseDateString,CustomerProduct.getFORMATTER());
+                role.applyPayment(customerSSN, purchaseDate);
+                break;
+            case 7:
             default:
-                
                 role.logout();
                 return;
         }
