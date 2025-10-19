@@ -6,7 +6,6 @@ package com.company.inventory_management_system.database;
 
 import com.company.inventory_management_system.CustomerProduct;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -31,9 +30,8 @@ public class CustomerProductDatabase extends Database{
             System.out.println("Invalid line input");
             return  null;
         }
-        // the default formatter is yyyy-mm-dd so need to make the our formatter.
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], formatter));
+        
+        return  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], CustomerProduct.getFORMATTER()));
     }
     
 }

@@ -17,13 +17,17 @@ public class CustomerProduct implements Record{
     private String productID;
     private LocalDate purchaseDate;
     private boolean paid;
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");// the default formatter is yyyy-mm-dd so need to make the our formatter.
 
     public CustomerProduct(String customerSSN, String productID, LocalDate purchaseDate) {
         this.customerSSN = customerSSN;
         this.productID = productID;
         this.purchaseDate = purchaseDate;
         this.paid = false;
+    }
+
+    public static DateTimeFormatter getFORMATTER() {
+        return FORMATTER;
     }
 
     public String getCustomerSSN() {
