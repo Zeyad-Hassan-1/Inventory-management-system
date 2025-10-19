@@ -34,8 +34,7 @@ public class CustomerProductDatabase extends Database{
         }
         // the default formatter is yyyy-mm-dd so need to make the our formatter.
         if (!Validation.isValidDate(fields[2])) return null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], formatter));
+        return  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], CustomerProduct.getFORMATTER()));
     }
     
 }
