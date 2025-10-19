@@ -17,7 +17,7 @@ public class Inventory_management_system {
 
 
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); 
 
         ProductDatabase productsDatabase = new ProductDatabase("products.txt");
         Product product = new Product("123","efes","dsfrd","efsre",-5,0.5f);
