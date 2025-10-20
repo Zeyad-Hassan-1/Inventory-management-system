@@ -149,6 +149,7 @@ public class EmployeeRole implements Role {
                 purchase.setPaid(true);
             }
         }
+        customerProductDatabase.saveToFile();
         return purchaseExists;
     }
 
