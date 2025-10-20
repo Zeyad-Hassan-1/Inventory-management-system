@@ -28,13 +28,16 @@ public class CustomerProductDatabase extends Database{
             return null;
         }
         String[] fields = line.replace(" ","").split(",");
-        if(fields.length != 3){
+        if(fields.length != 4){
             System.out.println("Invalid line input");
             return  null;
         }
         // the default formatter is yyyy-mm-dd so need to make the our formatter.
         if (!Validation.isValidDate(fields[2])) return null;
-        return  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], CustomerProduct.getFORMATTER()));
+        CustomerProduct purchase =  new CustomerProduct(fields[0],fields[1],LocalDate.parse(fields[2], CustomerProduct.getFORMATTER()));
+        if(fields[3].equals("true"))
+            purchase.setPaid(true);
+        return purchase;
     }
     
 }

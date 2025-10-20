@@ -55,6 +55,10 @@ public class EmployeeRole implements Role {
 
     }
 
+    public void addProduct(String productID, String productName, String manufacturerName,
+                           String supplierName, int quantity){
+        addProduct(productID, productName, manufacturerName, supplierName, quantity, 0.0f);
+    }
     public Product[] getListOfProducts() {
         productsDatabase.readFromFile();
         return productsDatabase.returnAllRecords().toArray(new Product[0]);
