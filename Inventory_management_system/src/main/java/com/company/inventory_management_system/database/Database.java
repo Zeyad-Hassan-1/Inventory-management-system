@@ -85,7 +85,7 @@ public abstract class Database {
     public final void saveToFile() {
         File file = new File(this.fileName);
         try (FileWriter writer = new FileWriter(file)) {
-            System.out.println("Saving to file...");
+            System.out.println("Saving to file..." + this.fileName);
             for (Record record : records) {
                 writer.write(record.lineRepresentation() + "\n");
             }
