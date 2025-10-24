@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.company.inventory_management_system.frontend;
+package com.company.inventory_management_system.frontend.admin;
 
 import com.company.inventory_management_system.EmployeeUser;
 import com.company.inventory_management_system.role.AdminRole;

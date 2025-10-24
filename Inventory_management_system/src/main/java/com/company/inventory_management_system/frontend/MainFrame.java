@@ -4,7 +4,7 @@
  */
 package com.company.inventory_management_system.frontend;
 //import com.formdev.flatlaf.FlatDarkLaf;
-import com.company.inventory_management_system.frontend.Admin;
+import com.company.inventory_management_system.frontend.admin.Admin;
 import com.formdev.flatlaf.FlatDarculaLaf;
 //import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Image;
