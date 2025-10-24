@@ -72,13 +72,15 @@ public abstract class Database {
         }
     }
 
-    public final void deleteRecord(String key) {
+    public final boolean deleteRecord(String key) {
         Record record = getRecord(key);
         if (record != null) {
             records.remove(getRecord(key));
             System.out.println("Record deleted successfully");
+            return true;
         } else {
             System.out.println("Record not found");
+            return false;
         }
     }
 

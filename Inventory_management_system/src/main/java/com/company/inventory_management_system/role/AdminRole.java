@@ -52,10 +52,14 @@ public class AdminRole implements Role {
         return database.returnAllRecords().toArray(new EmployeeUser[0]);
     }
 
-    public void removeEmployee(String key) {
+    public boolean removeEmployee(String key) {
         database.readFromFile();
-        database.deleteRecord(key);
-        database.saveToFile();
+        if (database.deleteRecord(key)) {
+            database.saveToFile();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

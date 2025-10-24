@@ -14,10 +14,7 @@ package com.company.inventory_management_system;
 public class Validation {
 
     public static boolean notEmpty(String value) {
-        if (value == null || value.trim().isEmpty()) {
-            return false;
-        }
-        return true;
+        return !(value == null || value.trim().isEmpty());
     }
 
     /**
@@ -221,6 +218,15 @@ public class Validation {
         return true;
     }
 
-    
+    public static boolean validName(String name) {
+    if (name == null) return false;
+
+    name = name.trim();
+    if (name.isEmpty()) return false;
+
+    if (!name.matches("^[A-Za-z ]+$")) return false;
+
+    return !name.contains("  ");
+}
 
 }

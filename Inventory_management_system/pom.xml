@@ -7,7 +7,15 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>24</maven.compiler.release>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
         <exec.mainClass>com.company.inventory_management_system.Inventory_management_system</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>   com.formdev</groupId>
+            <artifactId>flatlaf </artifactId>
+            <version> 3.6.2</version>
+        </dependency>
+    </dependencies>
 </project>
