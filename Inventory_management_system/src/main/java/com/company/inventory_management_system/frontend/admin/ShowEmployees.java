@@ -6,6 +6,7 @@ package com.company.inventory_management_system.frontend.admin;
 
 import com.company.inventory_management_system.EmployeeUser;
 import com.company.inventory_management_system.role.AdminRole;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Mega
  */
 public class ShowEmployees extends javax.swing.JFrame {
+
+    private JFrame previousFrame = new Admin();
 
     /**
      * Creates new form ShowEmployees
@@ -28,6 +31,12 @@ public class ShowEmployees extends javax.swing.JFrame {
             data = employee.lineRepresentation().split(",");
             model.addRow(data);
         }
+        javax.swing.JMenuItem backMenuItem = new javax.swing.JMenuItem("🡠 Back");
+        backMenuItem.addActionListener(evt -> {
+            this.dispose();
+            previousFrame.setVisible(true);
+        });
+        jMenuBar1.add(backMenuItem);
 
     }
 
@@ -47,6 +56,7 @@ public class ShowEmployees extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
@@ -140,6 +150,7 @@ public class ShowEmployees extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(jPanel3, gridBagConstraints);
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -181,6 +192,7 @@ public class ShowEmployees extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

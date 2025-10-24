@@ -6,6 +6,7 @@ package com.company.inventory_management_system.frontend.employee;
 
 import com.company.inventory_management_system.Product;
 import com.company.inventory_management_system.role.EmployeeRole;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Mega
  */
 public class ShowProducts extends javax.swing.JFrame {
+
+    private JFrame previousFrame = new Employee();
 
     /**
      * Creates new form ShowProducts
@@ -28,7 +31,12 @@ public class ShowProducts extends javax.swing.JFrame {
             data = product.lineRepresentation().split(",");
             model.addRow(data);
         }
-
+        javax.swing.JMenuItem backMenuItem = new javax.swing.JMenuItem("🡠 Back");
+        backMenuItem.addActionListener(evt -> {
+            this.dispose();
+            previousFrame.setVisible(true);
+        });
+        jMenuBar1.add(backMenuItem);
     }
 
     /**
@@ -47,6 +55,7 @@ public class ShowProducts extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
@@ -125,7 +134,7 @@ public class ShowProducts extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 51, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -133,6 +142,7 @@ public class ShowProducts extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(jPanel3, gridBagConstraints);
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -174,6 +184,7 @@ public class ShowProducts extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

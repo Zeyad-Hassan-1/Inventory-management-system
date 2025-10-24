@@ -10,6 +10,7 @@ import com.company.inventory_management_system.database.ProductDatabase;
 import com.company.inventory_management_system.role.EmployeeRole;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -18,13 +19,21 @@ import javax.swing.JTextField;
  * @author Mega
  */
 public class AddProduct extends javax.swing.JFrame {
+
     EmployeeRole role = new EmployeeRole();
+    private JFrame previousFrame = new Employee();
 
     /**
      * Creates new form AddProduct
      */
     public AddProduct() {
         initComponents();
+        javax.swing.JMenuItem backMenuItem = new javax.swing.JMenuItem("🡠 Back");
+        backMenuItem.addActionListener(evt -> {
+            this.dispose();
+            previousFrame.setVisible(true);
+        });
+        jMenuBar1.add(backMenuItem);
     }
 
     /**
@@ -50,6 +59,7 @@ public class AddProduct extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         price = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
@@ -177,6 +187,7 @@ public class AddProduct extends javax.swing.JFrame {
         gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(price, gridBagConstraints);
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -194,7 +205,7 @@ public class AddProduct extends javax.swing.JFrame {
         if (new ProductDatabase("Products.txt").contains(id.getText())) {
             JOptionPane.showMessageDialog(rootPane, "This Product already in the database", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            role.addProduct(id.getText(), productName.getText(),ManufacturerName.getText(), supplierName.getText(), Integer.parseInt(quantity.getText()),Float.parseFloat(price.getText()));
+            role.addProduct(id.getText(), productName.getText(), ManufacturerName.getText(), supplierName.getText(), Integer.parseInt(quantity.getText()), Float.parseFloat(price.getText()));
 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -248,6 +259,7 @@ public class AddProduct extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTextField price;
     private javax.swing.JTextField productName;
     private javax.swing.JTextField quantity;
@@ -260,7 +272,7 @@ class NotNegative extends InputVerifier {
     @Override
     public boolean verify(JComponent input) {
         JTextField field = (JTextField) input;
-        if (!Validation.isPositiveFloat(field.getText()) || !Validation.isPositiveInt(field.getText())){
+        if (!Validation.isPositiveFloat(field.getText()) || !Validation.isPositiveInt(field.getText())) {
             JOptionPane.showMessageDialog(input, "Field can't be Negative", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }

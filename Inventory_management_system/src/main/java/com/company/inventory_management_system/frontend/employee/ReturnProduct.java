@@ -8,6 +8,7 @@ import com.company.inventory_management_system.CustomerProduct;
 import com.company.inventory_management_system.ValidDate;
 import com.company.inventory_management_system.role.EmployeeRole;
 import java.time.LocalDate;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,11 +17,19 @@ import javax.swing.JOptionPane;
  */
 public class ReturnProduct extends javax.swing.JFrame {
 
+    private JFrame previousFrame = new Employee();
+
     /**
      * Creates new form ReturnProduct
      */
     public ReturnProduct() {
         initComponents();
+        javax.swing.JMenuItem backMenuItem = new javax.swing.JMenuItem("🡠 Back");
+        backMenuItem.addActionListener(evt -> {
+            this.dispose();
+            previousFrame.setVisible(true);
+        });
+        jMenuBar1.add(backMenuItem);
     }
 
     /**
@@ -40,6 +49,7 @@ public class ReturnProduct extends javax.swing.JFrame {
         id = new javax.swing.JTextField();
         date = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
@@ -104,6 +114,7 @@ public class ReturnProduct extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(jButton1, gridBagConstraints);
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -163,6 +174,7 @@ public class ReturnProduct extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTextField ssn;
     // End of variables declaration//GEN-END:variables
 }

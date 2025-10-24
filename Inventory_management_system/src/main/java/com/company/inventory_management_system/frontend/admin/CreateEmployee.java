@@ -9,6 +9,7 @@ import com.company.inventory_management_system.database.EmployeeUserDatabase;
 import com.company.inventory_management_system.role.AdminRole;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -18,11 +19,19 @@ import javax.swing.JTextField;
  */
 public class CreateEmployee extends javax.swing.JFrame {
 
+    private JFrame previousFrame = new Admin();
+
     /**
      * Creates new form CreateEmployee
      */
     public CreateEmployee() {
         initComponents();
+        javax.swing.JMenuItem backMenuItem = new javax.swing.JMenuItem("🡠 Back");
+        backMenuItem.addActionListener(evt -> {
+            this.dispose();
+            previousFrame.setVisible(true);
+        });
+        jMenuBar1.add(backMenuItem);
     }
 
     /**
@@ -46,6 +55,7 @@ public class CreateEmployee extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
@@ -148,6 +158,7 @@ public class CreateEmployee extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         getContentPane().add(jLabel5, gridBagConstraints);
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -216,6 +227,7 @@ public class CreateEmployee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTextField name;
     private javax.swing.JTextField phone;
     // End of variables declaration//GEN-END:variables

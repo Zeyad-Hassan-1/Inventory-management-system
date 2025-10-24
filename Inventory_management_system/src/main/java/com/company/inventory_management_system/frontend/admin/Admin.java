@@ -4,7 +4,9 @@
  */
 package com.company.inventory_management_system.frontend.admin;
 
+import com.company.inventory_management_system.frontend.MainFrame;
 import com.company.inventory_management_system.role.AdminRole;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,12 +16,20 @@ import javax.swing.JOptionPane;
 public class Admin extends javax.swing.JFrame {
 
     private AdminRole role = new AdminRole();
+    private JFrame previousFrame = new MainFrame();
 
     /**
      * Creates new form Admin
      */
     public Admin() {
         initComponents();
+        javax.swing.JMenuItem backMenuItem = new javax.swing.JMenuItem("🡠 Back");
+        backMenuItem.addActionListener(evt -> {
+            this.dispose();
+            previousFrame.setVisible(true);
+        });
+        jMenuBar1.add(backMenuItem);
+
     }
 
     /**
@@ -37,8 +47,9 @@ public class Admin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
         layout.columnWidths = new int[] {500};
         layout.rowHeights = new int[] {500};
@@ -108,6 +119,7 @@ public class Admin extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(jPanel1, gridBagConstraints);
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -136,7 +148,7 @@ public class Admin extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         role.logout();
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -179,6 +191,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

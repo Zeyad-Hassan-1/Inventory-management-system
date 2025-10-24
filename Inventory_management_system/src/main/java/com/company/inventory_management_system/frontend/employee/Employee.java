@@ -4,7 +4,9 @@
  */
 package com.company.inventory_management_system.frontend.employee;
 
+import com.company.inventory_management_system.frontend.MainFrame;
 import com.company.inventory_management_system.role.EmployeeRole;
+import javax.swing.JFrame;
 
 /**
  *
@@ -12,11 +14,20 @@ import com.company.inventory_management_system.role.EmployeeRole;
  */
 public class Employee extends javax.swing.JFrame {
     EmployeeRole role = new EmployeeRole();
+    private JFrame previousFrame = new MainFrame();
+
     /**
      * Creates new form Employee
      */
     public Employee() {
         initComponents();
+        javax.swing.JMenuItem backMenuItem = new javax.swing.JMenuItem("🡠 Back");
+backMenuItem.addActionListener(evt -> {
+    this.dispose();
+    previousFrame.setVisible(true);
+});
+jMenuBar1.add(backMenuItem);
+
     }
 
     /**
@@ -36,6 +47,7 @@ public class Employee extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
@@ -130,6 +142,7 @@ public class Employee extends javax.swing.JFrame {
         gridBagConstraints.gridy = 10;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(jButton7, gridBagConstraints);
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -137,7 +150,7 @@ public class Employee extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         role.logout();
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -213,5 +226,6 @@ public class Employee extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
